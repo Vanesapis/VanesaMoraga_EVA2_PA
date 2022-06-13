@@ -21,5 +21,7 @@ namespace VanesaMoraga_EVA2.Models
         public Nullable<int> stock { get; set; }
         public int id_categoria { get; set; }
         public Nullable<bool> estado { get; set; }
+    
+        public virtual Categoria Categoria { get; set; }
     }
 }

@@ -13,11 +13,10 @@ namespace VanesaMoraga_EVA2.Views.Estadistica
     public class EstadisticaController : Controller
     {
         private FabricaDB db = new FabricaDB();
-
         // GET: Estadistica
         public ActionResult Index()
         {
             return View();
         }
-    }
+}
 }

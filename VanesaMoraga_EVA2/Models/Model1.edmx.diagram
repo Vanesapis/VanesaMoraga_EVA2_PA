@@ -7,6 +7,7 @@
       <Diagram DiagramId="0872b556d83e49699a60e744a98ff076" Name="Diagram1">
         <EntityTypeShape EntityType="Fabrica_db.Producto" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Fabrica_db.Categoria" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="Fabrica_db.FK_Producto_Categoria" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

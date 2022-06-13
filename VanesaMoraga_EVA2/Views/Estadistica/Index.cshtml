@@ -1,15 +1,8 @@
-﻿@model IEnumerable<VanesaMoraga_EVA2.Models.Producto>
-
-
-@{
+﻿@{
     ViewBag.Title = "Estadistica";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{       
-    foreach (var item in Model)
-    var newcat
-}
 
 @section Scripts{
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -25,7 +18,7 @@
                 type: 'pie'
             },
             title: {
-                text: 'Porcentaje de productos por categoría'
+                text: 'Porcentajes de productos y categorías'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -49,24 +42,16 @@
                 name: 'Brands',
                 colorByPoint: true,
                 data: [{
-                    name: 'Limpieza',
-                    y: 6.41,
+                    name: 'Chrome',
+                    y: 1,
                 }, {
-                    name: 'comida',
-                    y: 11.84
-                    }, {
-                        name: 'juguetes',
-                        y:
-                    }]
+                    name: 'Internet Explorer',
+                    y: 3
+                }]
             }]
         });
     </script>
 
 }
 
-<h2>Estadísticas</h2>
-
-<div id="container">
-      
-</div>
-
+<div id="container"></div>

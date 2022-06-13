@@ -4,9 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Fabrica_db.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Prueba1.dbo.Categoria' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+    <Schema Namespace="Fabrica_db.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categoria">
           <Key>
             <PropertyRef Name="id_categoria" />
@@ -26,17 +24,27 @@ warning 6002: The table/view 'Prueba1.dbo.Categoria' does not have a primary key
           <Property Name="id_categoria" Type="int" Nullable="false" />
           <Property Name="estado" Type="bit" />
         </EntityType>
+        <Association Name="FK_Producto_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Fabrica_dbStoreContainer">
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Categoria" EntityType="Self.Categoria" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Categoria].[id_categoria] AS [id_categoria], 
-    [Categoria].[nombre] AS [nombre]
-    FROM [dbo].[Categoria] AS [Categoria]</DefiningQuery>
-          </EntitySet>
+          <AssociationSet Name="FK_Producto_Categoria" Association="Self.FK_Producto_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Fabrica_db" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -51,6 +59,7 @@ warning 6002: The table/view 'Prueba1.dbo.Categoria' does not have a primary key
           <Property Name="stock" Type="Int32" />
           <Property Name="id_categoria" Type="Int32" Nullable="false" />
           <Property Name="estado" Type="Boolean" />
+          <NavigationProperty Name="Categoria" Relationship="Fabrica_db.FK_Producto_Categoria" FromRole="Producto" ToRole="Categoria" />
         </EntityType>
         <EntityType Name="Categoria">
           <Key>
@@ -58,11 +67,28 @@ warning 6002: The table/view 'Prueba1.dbo.Categoria' does not have a primary key
           </Key>
           <Property Name="id_categoria" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Productoes" Relationship="Fabrica_db.FK_Producto_Categoria" FromRole="Categoria" ToRole="Producto" />
         </EntityType>
         <EntityContainer Name="FabricaDB" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Productoes" EntityType="Self.Producto" />
           <EntitySet Name="Categorias" EntityType="Self.Categoria" />
+          <AssociationSet Name="FK_Producto_Categoria" Association="Fabrica_db.FK_Producto_Categoria">
+            <End Role="Categoria" EntitySet="Categorias" />
+            <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Producto_Categoria">
+          <End Type="Fabrica_db.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="Fabrica_db.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

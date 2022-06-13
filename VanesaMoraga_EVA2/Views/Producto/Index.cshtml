@@ -54,9 +54,9 @@
             @Html.DisplayFor(modelItem => item.estado)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_producto }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_producto }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_producto })
+            @Html.ActionLink("Edit", "Edit", new { id = item.id_producto.Trim() }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id_producto.Trim() }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id_producto.Trim() })
         </td>
     </tr>
 }
