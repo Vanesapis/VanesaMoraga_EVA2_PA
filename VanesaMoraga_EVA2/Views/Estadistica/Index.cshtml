@@ -1,57 +1,21 @@
-﻿@{
+﻿
+
+@{
     ViewBag.Title = "Estadistica";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<double> lis_prom = ViewBag.lis_prom;
+    List<int> lis_stock = ViewBag.lis_stock;
+    List<String> lis_categoria = ViewBag.lis_categoria;
 }
+<div>
+    <h2>Estadísticas</h2>
+    @for (var i = 0; i < lis_stock.Count; i++)
+    {
 
+        <h4>Categoría: @lis_categoria[i]</h4>
+        <p>Total de productos por categoria: @lis_stock[i]</p>
+        <p>Promedio de precios: @lis_prom[i]</p>
+        <br>
 
-@section Scripts{
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script>
-        Highcharts.chart('container', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: 'Porcentajes de productos y categorías'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            accessibility: {
-                point: {
-                    valueSuffix: '%'
-                }
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                name: 'Brands',
-                colorByPoint: true,
-                data: [{
-                    name: 'Chrome',
-                    y: 1,
-                }, {
-                    name: 'Internet Explorer',
-                    y: 3
-                }]
-            }]
-        });
-    </script>
-
-}
-
-<div id="container"></div>
+    }
+</div>
